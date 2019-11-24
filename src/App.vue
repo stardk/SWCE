@@ -23,10 +23,6 @@
               rect(opacity="0.4" width="11.1925" height="2" transform="matrix(-1 3.17865e-08 3.17865e-08 1 35.6316 59.0262)" fill="#6EF6FF")
               rect(opacity="0.1" width="8.75936" height="2" transform="matrix(-1 3.17865e-08 3.17865e-08 1 34.1719 62.9193)" fill="#6EF6FF")
           .main-content(v-else key="fetched")
-            //- transition(name="fade")
-            //-   .popup(v-if="showPopup")
-            //-     CharacterPopup(:character="chosenCharacter" @close-popup="showPopup = false")
-            //-     .popup__overlay(@click="showPopup = false")
             .search
               .search__input 
                 input(type="text" v-model="currentSearch" required="required" @input="debounceInput")
@@ -61,8 +57,7 @@ export default {
       searchValue: '',
       currentSearch: '',
       chosenCharacter: {},
-      showPopup: false,
-      scrolled: false
+      showPopup: false
     }
   },
   mounted () {
@@ -99,7 +94,6 @@ export default {
         })
     },
     async onCardClick(url) {
-      console.log('clicked ', url);
       this.loading = true;
       this.$store.dispatch('getChosenCharacter', { url: url })
         .then(() => {
@@ -111,7 +105,6 @@ export default {
     },
     loadNextCharacters() {
       if (this.searchValue == '') {
-        console.log('scrolled');
         this.$store.dispatch('loadNextCharacters');
       }
     },
@@ -133,22 +126,26 @@ $max-width-value: 767px;
 
 //Animations
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease;
 }
-// .fade-enter-active {
-//   transition-delay: 0.5s;
-// }
+.fade-enter-active {
+  transition-delay: 0.5s;
+}
 .fade-enter {
   opacity: 0;
+  transform: translateY(100px);
 }
 .fade-enter-to {
   opacity: 1;
+  transform: translateY(0px);
 }
 .fade-leave {
   opacity: 1;
+  transform: translateY(0px);
 }
 .fade-leave-to {
   opacity: 0;
+  transform: translateY(-100px);
 }
 
 body {
@@ -257,6 +254,7 @@ body {
         flex-wrap: wrap;
         justify-content: center;
         align-content: center;
+        padding-bottom: 150px;
         @keyframes falcon {
           from { 	transform: rotate(0deg) translateX(75px); }
           to   {  transform: rotate(360deg) translateX(75px); }
@@ -280,7 +278,6 @@ body {
               animation: 0.5s linear 0.5s infinite falcon-fire alternate;
             }
           }
-          
         }
         .main-content {
           display: flex;
@@ -294,31 +291,6 @@ body {
               padding: 0 24px;
               flex-direction: column;
           }
-          // .popup {
-          //   width: 100vw;
-          //   height: 100vh;
-          //   position: absolute;
-          //   display: flex;
-          //   justify-content: center;
-          //   align-items: center;
-          //   overflow: hidden;
-          //   .popup__overlay {
-          //     position: fixed;
-          //     top: 0;
-          //     left: 0;
-          //     width: 100%;
-          //     height: 100%;
-          //     background-color: transparent;
-          //     backdrop-filter: blur(30px);
-          //     z-index: 999;
-          //     @media (min-width: $min-width-value) and (max-width: $max-width-value) {
-          //       display: none;
-          //     }
-          //   }
-          //   *:not(.popup__overlay) {
-          //     z-index: 1000;
-          //   }
-          // }
           .card-list-item {
             margin: 16px;
             flex: 1 0 35%;
