@@ -289,7 +289,6 @@ body {
           width: 100%;
           @media (min-width: $min-width-value) and (max-width: $max-width-value) {
               padding: 0 24px;
-              flex-direction: column;
           }
           .card-list-item {
             margin: 16px;
