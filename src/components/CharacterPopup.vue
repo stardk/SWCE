@@ -4,7 +4,7 @@
       svg(width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg")
         path(d="M1 13L13 1M13 13L1 1" stroke="white" stroke-width="2" stroke-linecap="round")
     .character-name
-      .character-name__avatar(:style="{ color: generateColor }")
+      .character-name__avatar(:style="{ color: bgColor }")
         span {{ character.name.charAt(0) }}
       span {{ character.name }}
     .card__divider
@@ -82,7 +82,7 @@
       required: true
     },
     computed: {
-      generateColor() {
+      bgColor() {
         let color = Math.floor(Math.random() * 16777216).toString(16);
         return '#000000'.slice(0, -color.length) + color;
       }

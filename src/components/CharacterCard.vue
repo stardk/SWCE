@@ -1,6 +1,6 @@
 <template lang="pug">
   .card
-    .card__avatar(:style="{ color: generateColor }")
+    .card__avatar(:style="{ color: bgColor }")
       span {{ character.name.charAt(0) }}
     .card__name {{ character.name }}
     .card__species {{ character.species }}
@@ -16,7 +16,7 @@ export default {
     }
   },
   computed: {
-    generateColor() {
+    bgColor() {
       let color = Math.floor(Math.random() * 16777216).toString(16);
       return '#000000'.slice(0, -color.length) + color;
     }

@@ -41,6 +41,7 @@ export default new Vuex.Store({
   actions: {
     loadCharacters(context, payload = {url: api.url, unset: false}) {
       const getSpecies = async (character) => {
+        if (!character.species[0]) return ''
         return new Promise((resolve, reject) => {
           fetch(character.species[0])
             .then(res => res.json())
@@ -129,6 +130,8 @@ export default new Vuex.Store({
         return Promise.all(filmsUrls.map(filmUrl => getOneFilm(filmUrl)));
       }
       const getAdditionalInfo = async (url) => {
+        console.log(url)
+        if (!url) return ''
         return new Promise((resolve, reject) => {
           fetch(url)
             .then(response => response.json())
